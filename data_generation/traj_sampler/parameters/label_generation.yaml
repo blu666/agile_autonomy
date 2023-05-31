@@ -15,7 +15,7 @@ drone_dim_x: 0.30
 drone_dim_y: 0.30
 drone_dim_z: 0.20
 perform_mpc_optimization: true  # if true, trajectories are sampled around MPC solution
-perform_global_planning: false
+perform_global_planning: true # false
 save_wf: true
 save_bf: true
 bspline:

@@ -2,7 +2,7 @@ quad_name: 'hummingbird'
 odometry_topic: 'ground_truth/odometry'
 rgb_topic: 'agile_autonomy/unity_rgb'
 depth_topic: 'agile_autonomy/sgm_depth'
-log_dir: '/tmp/trash_reactive'
+log_dir: 'results/log/test' #'/tmp/trash_reactive'
 verbose: False
 use_rgb: False # Use camera images
 use_depth: True # Use depth images
@@ -17,10 +17,10 @@ img_width: 224
 img_height: 224
 checkpoint:
   resume_training: True
-  resume_file: "models/ckpt-50"
+  resume_file: "models/ckpt-12"
 test_time:
-  max_rollouts: 50
-  test_folder: "/tmp/test"
+  max_rollouts: 10
+  test_folder: "results/test" #"/tmp/test"
   expert_folder: "../data_generation/data/"
   fallback_radius_expert: 0.0 #mt unused at test time
   network_frequency: 15.0 #Hz
@@ -41,4 +41,4 @@ unity:
   random_seed: 0
   # x,y,z, yaw
   # forest
-  unity_start_pos: [[-20.,20.,0.,0]]
+  unity_start_pos: [[-20.,20.,0.,0]] #, [-10.,0.,0.,0.]]

@@ -1,4 +1,4 @@
-log_dir: '/tmp/train_7m_object_straight/'
+log_dir: 'log/train_5m_tf_dagger/'
 quad_name: 'hummingbird'
 odometry_topic: 'ground_truth/odometry'
 rgb_topic: 'agile_autonomy/unity_rgb'
@@ -7,7 +7,7 @@ use_rgb: False # Use camera images
 use_depth: True # Use depth images
 state_dim: 3 # x,y,z
 out_seq_len: 10 # Number of steps in the future to predict
-future_time: 5.0 # in seconds, how much in the future to track the reference
+future_time: 3.0 # in seconds, how much in the future to track the reference
 predict_state_number: [ ] # Empty list means will predict all states in out_seq_len. Otherwise it will train only for the single state. Only supported mode is len(predict_state_number) == 1.
 seq_len: 1 # History Len. Reactive (hist = 1) works best.
 modes: 3 # Number of modes
@@ -20,27 +20,27 @@ data_generation:
   increase_net_usage_every_n_rollouts: 10
 checkpoint:
   resume_training: True
-  resume_file: "models/ckpt-50"
+  resume_file: "models/ckpt-12"
 train:
   max_training_epochs: 5
   batch_size: 8
   data_save_freq: 15
   top_trajectories: 3
   summary_freq: 400
-  train_dir: "data/train"
-  val_dir: "data/val" # you should fill this with some validation data
+  train_dir: "data/train/5m_global"
+  val_dir: "data/val/5m_global" # you should fill this with some validation data
   log_images: False
   freeze_backbone: False
   save_every_n_epochs: 5
   ref_frame: 'bf'
-  track_global_traj: False
+  track_global_traj: True # False
   spacings: [6,5,4] # mt
 test_time:
   execute_nw_predictions: True
   perform_inference: True # If `False` completely disables network forward passes
   accept_thresh: 0.9 # when ratio btw other and best score is larger than this, other trajectory will be sent as well.
   input_update_freq: 15 #Hz
-  fallback_radius_expert: 10 #m distance to trajectory to switch back. Put to zero when training from scratch
+  fallback_radius_expert: 0.2 #m distance to trajectory to switch back. Put to zero when training from scratch
   network_frequency: 15.0 #Hz
   crashed_thr: 0.20 # 10 cm from a point is crash
 verbose: False # saving net inputs
