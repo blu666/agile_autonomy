@@ -132,7 +132,7 @@ class PlanLearning(PlanBase):
         self.pcd_tree = None
         self.start_time = None
         # Learning phase to test
-        tf.keras.backend.set_learning_phase(0)
+        # tf.keras.backend.set_learning_phase(0)
         self.n_times_expert = 0.000
         self.n_times_net = 0.001
         self.crashed = False

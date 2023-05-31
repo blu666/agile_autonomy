@@ -91,6 +91,7 @@ def setup_sim(msg_handler, config):
     # get a position
     pos_choice = np.random.choice(len(config.unity_start_pos))
     position = np.array(config.unity_start_pos[pos_choice])
+    print("Placing quadrotor at position: {}".format(position))
     # No yawing possible for trajectory generation
     start_quaternion = Quaternion(axis=[0,0,1], angle=position[-1]).elements
 

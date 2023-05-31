@@ -15,7 +15,7 @@ import random
 
 from config.settings import create_settings
 
-MAX_TIME_EXP = 500  # in second, if it takes more the process needs to be killed
+MAX_TIME_EXP = 200  # in second, if it takes more the process needs to be killed
 
 
 class Trainer():
@@ -73,6 +73,10 @@ class Trainer():
             self.msg_handler.publish_tree_spacing(spacing)
             self.msg_handler.publish_obj_spacing(spacing)
             unity_start_pos = setup_sim(self.msg_handler, config=self.settings)
+            # if self.settings.track_global_traj:
+            #     self.learner.run_mppi_expert()
+            #     while not self.expert_done:
+            #         time.sleep(1)
             self.start_experiment(rollout_idx)
             start = time.time()
             exp_failed = False
@@ -99,6 +103,7 @@ class Trainer():
                 # Wait for expert to be done labelling (block gazebo meanwhile)
                 os.system("rosservice call /gazebo/pause_physics")
                 # Send message to get expert running
+                # if not self.settings.track_global_traj:
                 self.learner.run_mppi_expert()
                 while not self.expert_done:
                     time.sleep(1)
@@ -113,7 +118,7 @@ class Trainer():
                 if rollout_idx % self.settings.increase_net_usage_every_n_rollouts == 0:
                     self.settings.fallback_radius_expert = \
                         np.minimum(
-                            self.settings.fallback_radius_expert + 0.5, 50.0)
+                            self.settings.fallback_radius_expert + 0.25, 6.0)
                     print("Setting threshold to {}".format(
                         self.settings.fallback_radius_expert))
                 os.system("rosservice call /gazebo/unpause_physics")

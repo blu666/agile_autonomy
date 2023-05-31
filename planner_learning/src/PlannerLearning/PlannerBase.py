@@ -146,7 +146,7 @@ class PlanBase(object):
             self.load_trajectory(traj_fname)
             self.reference_initialized = True
             # Learning phase to test
-            tf.keras.backend.set_learning_phase(0)
+            # tf.keras.backend.set_learning_phase(0)
 
         # Might be here if you crash in less than a second.
         if self.maneuver_complete:
